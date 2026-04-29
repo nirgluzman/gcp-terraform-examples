@@ -1,0 +1,8 @@
+@url = <your-cloud-function-url>
+
+POST {{url}}
+Content-Type: application/json
+
+{
+    "message": "hello world"
+}
