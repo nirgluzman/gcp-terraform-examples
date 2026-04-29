@@ -14,11 +14,21 @@
 | `cloud_function/` | Deploys an HTTP-triggered Cloud Function (Gen 2) that returns the request method and body |
 
 ## Authenticate with GCP
-1. [gcloud auth application-default login](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login)
-Create a local file to authenticate local code, tools (e.g., Terraform), or IDEs (e.g., VS Code) with Google Cloud APIs.
 
-2. Service Account keys - preferred in production:
+### 1. Application Default Credentials (ADC)
+Suitable for local development. Creates a local credentials file that tools like Terraform and the gcloud SDK use to authenticate with Google Cloud APIs.
+
+[gcloud auth application-default login](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login)
+
+### 2. Service Account Keys - preferred in production
+Use a Service Account with a JSON key file to authenticate Terraform. More explicit and suitable for CI/CD pipelines and production environments.
 - Create a Service Account in the GCP Console.
 - Assign appropriate roles (e.g., Editor, Owner, or custom roles).
 - Create and download a JSON key file for the Service Account.
-- Use the JSON key file to authenticate Terraform by specifying the path in the provider configuration (e.g., `credentials = "${path.module}/keys.json"`).
+- Specify the key file path in the provider configuration (e.g., `credentials = "${path.module}/keys.json"`).
+
+#### Terraform Service Account Roles
+
+The Terraform Service Account needs roles to perform deployment tasks for creating and managing GCP resources:
+
+<img src="images/tf-sa-roles.png" width="500">
