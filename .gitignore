@@ -1,0 +1,2 @@
+# Service Account key files - contains sensitive credentials, never commit to source control
+keys.json
